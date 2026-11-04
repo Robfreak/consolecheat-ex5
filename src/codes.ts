@@ -24,7 +24,13 @@ export type ErrorCode = {
   code: string;
   platform: Platform;
   category: Category;
+  /** en-us support page for this code. English UI always uses this. */
   source: string;
+  /**
+   * de-de support page for this code. Set only when that URL returned HTTP 200.
+   * German UI uses it, and falls back to `source` when it is absent.
+   */
+  sourceDe?: string;
   de: Localized;
   en: Localized;
 };
@@ -35,21 +41,42 @@ export const sonyErrorSearch = {
   en: "https://www.playstation.com/en-us/support/error-codes/",
 } as const;
 
-function entry(platform: Platform, code: string, category: Category, de: Localized, en: Localized): ErrorCode {
+function supportUrl(locale: "en-us" | "de-de", platform: Platform, code: string): string {
   const slug = platform === "PS4" ? "ps4" : "ps5";
+  return `https://www.playstation.com/${locale}/support/error-codes/${slug}/${code.toLowerCase()}/`;
+}
+
+function entry(
+  platform: Platform,
+  code: string,
+  category: Category,
+  de: Localized,
+  en: Localized,
+  dePage = true,
+): ErrorCode {
   return {
     code,
     platform,
     category,
-    source: `https://www.playstation.com/en-us/support/error-codes/${slug}/${code.toLowerCase()}/`,
+    source: supportUrl("en-us", platform, code),
+    ...(dePage ? { sourceDe: supportUrl("de-de", platform, code) } : {}),
     de,
     en,
   };
 }
 
+/** English stays on en-us. German uses the de-de page when one was recorded. */
+export function sourceFor(entry: Pick<ErrorCode, "source" | "sourceDe">, lang: "de" | "en"): string {
+  if (lang === "de" && entry.sourceDe) return entry.sourceDe;
+  return entry.source;
+}
+
 /**
- * Curated PS4 and PS5 codes. Each source URL was checked on playstation.com
- * (individual support page, HTTP 200, 2026-10-22). Wording is paraphrased.
+ * Curated PS4 and PS5 codes. Each en-us source URL was checked on playstation.com
+ * (individual support page, HTTP 200, 2026-10-22). Each matching de-de URL was
+ * checked the same way on 2026-11-04: 89 of 89 returned HTTP 200, so every entry
+ * records `sourceDe`. Pass `dePage` false when a future de-de page is not HTTP 200;
+ * the German UI then keeps the en-us URL. Wording is paraphrased.
  * No PS5 code with the E- prefix appeared on the official PS5 list, so E- is omitted.
  */
 export const codes: readonly ErrorCode[] = [

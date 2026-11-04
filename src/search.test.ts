@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { CATEGORIES, PLATFORMS, PREFIXES, codes, sonyErrorSearch } from "./codes.ts";
+import { CATEGORIES, PLATFORMS, PREFIXES, codes, sonyErrorSearch, sourceFor } from "./codes.ts";
 import { copy, fill, resolveLang } from "./messages.ts";
 import {
   SHORT_LIST_LIMIT,
@@ -139,11 +139,19 @@ test("every entry has a code, German and English text, and an official Sony sour
     }
     assert.notEqual(entry.de.summary, entry.en.summary, entry.code);
 
+    const slug = entry.platform === "PS4" ? "ps4" : "ps5";
     const url = new URL(entry.source);
     assert.equal(url.protocol, "https:");
     assert.match(url.hostname, /(^|\.)playstation\.com$/);
-    const slug = entry.platform === "PS4" ? "ps4" : "ps5";
     assert.equal(url.pathname, `/en-us/support/error-codes/${slug}/${entry.code.toLowerCase()}/`);
+    assert.equal(sourceFor(entry, "en"), entry.source);
+
+    assert.ok(entry.sourceDe, `${entry.code} de-de page`);
+    const deUrl = new URL(entry.sourceDe);
+    assert.equal(deUrl.protocol, "https:");
+    assert.match(deUrl.hostname, /(^|\.)playstation\.com$/);
+    assert.equal(deUrl.pathname, `/de-de/support/error-codes/${slug}/${entry.code.toLowerCase()}/`);
+    assert.equal(sourceFor(entry, "de"), entry.sourceDe);
   }
 
   for (let i = 0; i < normalized.length; i += 1) {
@@ -152,9 +160,20 @@ test("every entry has a code, German and English text, and an official Sony sour
     }
   }
 
+  assert.equal(new URL(sonyErrorSearch.de).pathname, "/de-de/support/error-codes/");
+  assert.equal(new URL(sonyErrorSearch.en).pathname, "/en-us/support/error-codes/");
   for (const href of [sonyErrorSearch.de, sonyErrorSearch.en]) {
     const url = new URL(href);
     assert.equal(url.protocol, "https:");
     assert.match(url.hostname, /(^|\.)playstation\.com$/);
   }
+});
+
+test("German known-code links fall back to en-us when no de-de page is recorded", () => {
+  const en = "https://www.playstation.com/en-us/support/error-codes/ps4/ce-34878-0/";
+  const de = "https://www.playstation.com/de-de/support/error-codes/ps4/ce-34878-0/";
+  assert.equal(sourceFor({ source: en }, "de"), en);
+  assert.equal(sourceFor({ source: en }, "en"), en);
+  assert.equal(sourceFor({ source: en, sourceDe: de }, "de"), de);
+  assert.equal(sourceFor({ source: en, sourceDe: de }, "en"), en);
 });
