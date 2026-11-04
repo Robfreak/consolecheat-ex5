@@ -16,6 +16,7 @@ import {
   type PlatformFilter,
   type PrefixFilter,
 } from "./search.ts";
+import { otherTools, toolLabel } from "./tools.ts";
 
 type Theme = "light" | "dark";
 type Page = "home" | "impressum" | "datenschutz";
@@ -325,6 +326,25 @@ export function App() {
             <a href="#datenschutz" className="text-steel underline-offset-4 hover:underline">
               Datenschutz
             </a>
+          </nav>
+          <nav className="mt-2" aria-labelledby="more-tools-heading" data-testid="more-tools">
+            <p id="more-tools-heading" className="text-fg">
+              {t.moreTools}
+            </p>
+            <ul className="mt-1 flex flex-wrap gap-x-4 gap-y-1">
+              {otherTools.map((tool) => (
+                <li key={tool.id}>
+                  <a
+                    href={tool.href}
+                    rel="noreferrer"
+                    referrerPolicy="no-referrer"
+                    className="text-steel underline-offset-4 hover:underline"
+                  >
+                    {toolLabel(tool, lang)}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </nav>
           <p>{t.freeClaim}</p>
           <p>{t.privacyClaim}</p>
