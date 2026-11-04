@@ -14,6 +14,7 @@ export type Copy = {
   privacyClaim: string;
   unofficial: string;
   footerNote: string;
+  moreTools: string;
   themeDark: string;
   themeLight: string;
   language: string;
@@ -64,6 +65,7 @@ const de = pack({
   privacyClaim: "Keine Daten werden gespeichert oder gesendet. Die Suche bleibt in diesem Tab.",
   unofficial: "Inoffiziell. Nicht von Sony.",
   footerNote: "Bezahlt wird nirgends. Diese Seite ist nicht Sony.",
+  moreTools: "Weitere Werkzeuge",
   themeDark: "Dunkel",
   themeLight: "Hell",
   language: "Sprache",
@@ -108,6 +110,7 @@ const en = pack({
   privacyClaim: "Nothing is stored or sent. The search stays in this tab.",
   unofficial: "Unofficial. Not Sony.",
   footerNote: "Nothing is paid here. This site is not Sony.",
+  moreTools: "More tools",
   themeDark: "Dark",
   themeLight: "Light",
   language: "Language",

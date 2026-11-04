@@ -2,7 +2,7 @@
 
 Standalone lookup for common PlayStation 4 and PlayStation 5 error codes, built to sit next to [consolecheat.com](https://consolecheat.com). German is the default language. English is the other language. The same light and dark theme, self-hosted fonts, footer, Impressum, and Datenschutz pattern as the Controller-Tester are included. There is no Webmail link.
 
-No account, no tracking, nothing uploaded. The code you type stays in the browser tab. Language and theme are the only things kept locally (`consolecheat-lang`, `consolecheat-theme`), same keys as the hub. Fonts are self-hosted, so the page does not call Google or any other third party while it loads. The Impressum fields are placeholders until the operator fills them in.
+No account, no tracking, nothing uploaded. The code you type stays in the browser tab. Language and theme are the only things kept locally (`consolecheat-lang`, `consolecheat-theme`), same keys as the hub. Fonts are self-hosted, so the page does not call Google or any other third party while it loads. The footer links to the other tools are plain anchors. The page does not request those sites until someone follows a link. The Impressum fields are placeholders until the operator fills them in.
 
 Expected site: <https://robfreak.github.io/consolecheat-ex5/>
 
@@ -17,6 +17,8 @@ The list is curated. It has **89** codes, checked one by one against an individu
 Search is tolerant. `ce348780`, `CE 34878 0`, and `ce-34878-0` all open CE-34878-0. A shorter prefix such as `CE-348` shows a short list. `?q=` prefills the field on load, and typing updates the address with `history.replaceState`.
 
 You can also browse by prefix (CE, NW, SU, WS, NP), console, and category (network, system, account, storage, game and app, disc, payment, update).
+
+The footer heading is **Weitere Werkzeuge** in German and **More tools** in English. It links to Title-ID-Finder, PS-Plus-Archiv, Controller-Tester, Save-Info-Leser, Spiele-Merkliste, and Bildschirm-Test. This page is not in that list. The lookup at the top of the page is unchanged. Known codes still open the German Sony page in the German UI and the English Sony page in the English UI.
 
 ## Run and test
 
