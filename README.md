@@ -48,9 +48,10 @@ Every code was opened on an official PlayStation support page and kept only when
 
 - <https://www.playstation.com/en-us/support/error-codes/> (hub)
 - <https://www.playstation.com/en-us/support/error-codes/ps4/> and the same path for PS5 (which codes are common)
-- `https://www.playstation.com/en-us/support/error-codes/ps4/<code>/` or `.../ps5/<code>/` (the source stored on each entry)
+- `https://www.playstation.com/en-us/support/error-codes/ps4/<code>/` or `.../ps5/<code>/` (stored as `source`; used when the UI is English)
+- the same path under `/de-de/` (stored as `sourceDe` when that page returned HTTP 200). Checked 2026-11-04: 89 of 89 known codes. German UI uses that URL, and falls back to the en-us URL when `sourceDe` is absent.
 
-The German search link for unknown codes is <https://www.playstation.com/de-de/support/error-codes/>. The English one is the en-us hub above.
+The German search link for unknown codes stays <https://www.playstation.com/de-de/support/error-codes/>. The English one is the en-us hub above.
 
 The sentences in the app are paraphrased. They are not Sony’s text. The linked page is the source that counts.
 

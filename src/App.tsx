@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { CATEGORIES, PREFIXES, codes, sonyErrorSearch, type Category, type ErrorCode } from "./codes.ts";
+import { CATEGORIES, PREFIXES, codes, sonyErrorSearch, sourceFor, type Category, type ErrorCode } from "./codes.ts";
 import { Mark, MoonIcon, SunIcon } from "./icons.tsx";
 import { LegalPage } from "./legal.tsx";
 import { copy, fill, isLang, resolveLang, type Copy, type Lang } from "./messages.ts";
@@ -381,7 +381,7 @@ function Detail({ entry, t, lang }: { entry: ErrorCode; t: Copy; lang: Lang }) {
       <p className="mt-4 text-sm leading-relaxed break-words text-subtle">{t.paraphraseNote}</p>
       <p className="mt-3">
         <a
-          href={entry.source}
+          href={sourceFor(entry, lang)}
           target="_blank"
           rel="noopener noreferrer"
           referrerPolicy="no-referrer"
