@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fehlercode-Nachschlager · consolecheat</title>
+    <meta
+      name="description"
+      content="PS4- und PS5-Fehlercodes nachschlagen. Kurze Erklärung in unseren Worten und der Link zur offiziellen Sony-Seite. Inoffiziell, nicht von Sony. Nichts verlässt den Tab."
+    />
+    <meta name="theme-color" content="#07090e" />
+    <link rel="icon" type="image/svg+xml" href="/consolecheat-ex5/favicon.svg" />
+    <script>
+      (function () {
+        try {
+          var s = localStorage.getItem("consolecheat-theme");
+          var t =
+            s === "light" || s === "dark"
+              ? s
+              : matchMedia("(prefers-color-scheme: light)").matches
+                ? "light"
+                : "dark";
+          document.documentElement.dataset.theme = t;
+          var c = t === "light" ? "#f4f1eb" : "#07090e";
+          var m = document.querySelector('meta[name="theme-color"]');
+          if (m) m.setAttribute("content", c);
+        } catch (e) {
+          document.documentElement.dataset.theme = "dark";
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="/consolecheat-ex5/assets/index-NrgUegLl.js"></script>
+    <link rel="stylesheet" crossorigin href="/consolecheat-ex5/assets/index-DWuPTcR4.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
